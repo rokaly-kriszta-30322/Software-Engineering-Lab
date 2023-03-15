@@ -14,22 +14,19 @@ public class Exercise1RandomArray {
     }
 
     public static int[] findMaxAndMin(int[] array) {
-        int min = 0;
-        int max = 0;
-        for (int n : array) {
-            if (n <= min) {
-                min = n;
+        int min = array[0], max = array[1];
+        for (int j : array) {
+            if (min > j) {
+                min = j;
             }
-            if (n >= max) {
-                max = n;
+            if (max < j) {
+                max = j;
             }
         }
-
-        int mm[] = new int[2];
-        mm[0]=min;
-        mm[1]=max;
-
-        return mm;
+        int[] result = new int[2];
+        result[0] = min;
+        result[1] = max;
+        return result;
     }
 
 
