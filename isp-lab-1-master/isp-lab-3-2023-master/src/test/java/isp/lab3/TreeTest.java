@@ -1,42 +1,40 @@
 package isp.lab3;
 
 import isp.lab3.example.Airplain;
+import isp.lab3.exercise1.Tree;
 import org.junit.Test;
 
 import java.time.LocalDateTime;
 
 import static org.junit.Assert.*;
 
-public class AirplainTest {
+public class TreeTest {
 
     @Test
-    public void testIsLate() {
-        //create airplane with departure time 2023-03-15T09:30
-        LocalDateTime date1 = LocalDateTime.of(2025, 3, 15, 9, 30); // March 15, 2025 at 9:30 AM
-        Airplain airplane = new Airplain("Boeing 747", 416, 913, 14200, date1);
+    public void testGrow() {
+        Tree t = new Tree(20);
+        int actual = t.grow(10);
+        int expected = 30;
 
-        // Test isLate() when the departure time is in the future
-        assertFalse(airplane.isLate());
-
-        // Test isLate() when the departure time is in the past
-        LocalDateTime date2 = LocalDateTime.of(2019, 3, 15, 9, 30); // March 15, 2019 at 9:30 AM
-        airplane = new Airplain("Boeing 747", 416, 913, 14200, date2);
-        assertTrue(airplane.isLate());
+        assertEquals(expected,actual);
     }
 
     @Test
-    public void testLoadPassengers() {
-        LocalDateTime date1 = LocalDateTime.of(2023, 3, 15, 9, 30); // March 15, 2023 at 9:30 AM
-        Airplain airplane = new Airplain("Boeing 747", 416, 913, 14200, date1);
+    public void testGrow2() {
+        Tree t = new Tree(10);
+        int actual = t.grow(0);
+        int expected = 10;
 
-        // Test loading passengers when there are enough available seats
-        airplane.loadPassengers(200);
-        assertEquals(200, airplane.getPassengers());
-        airplane.loadPassengers(100);
-        assertEquals(300, airplane.getPassengers());
+        assertEquals(expected,actual);
 
-        // Test loading passengers when there are not enough available seats
-        airplane.loadPassengers(117);
-        assertEquals(300, airplane.getPassengers());
+
+    }
+
+    @Test
+    public void testToString() {
+        Tree t = new Tree(10);
+        String actual = t.toString();
+        String expected = "this is a tree with height 10";
+        assertEquals(expected,actual);
     }
 }
