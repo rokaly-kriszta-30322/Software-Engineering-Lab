@@ -9,7 +9,11 @@ public class Exercise3SumOfIntegersRecursive {
      * @return
      */
     public static int sumOfIntegers(int n) {
-        return -1;
+        if (n > 0) {
+            return n + sumOfIntegers(n - 1);
+        } else {
+            return 0;
+        }
     }
 
     public static void main(String[] args) {

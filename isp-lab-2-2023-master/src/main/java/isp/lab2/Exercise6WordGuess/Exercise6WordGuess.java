@@ -9,7 +9,13 @@ public class Exercise6WordGuess {
      * @return
      */
     public static int countOccurence(char c, char[] word) {
-        return -1;
+        int occurances = 0;
+        for(char letter : word) {
+            if (c == letter) {
+                ++occurances;
+            }
+        }
+        return occurances;
     }
 
     public static void main(String[] args) {

@@ -11,7 +11,19 @@ public class Exercise2PrimeProduct {
      * @return
      */
     public static long getPrimeProduct(int n, int m) {
-        return 0;
+        long result = 1;
+        for (int i = n; i <= m; ++i) {
+            int isPrime = 1;
+            for (int aux = i - 1; aux > 1; --aux) {
+                if (i % aux == 0) {
+                    isPrime = 0;
+                }
+            }
+            if (isPrime == 1) {
+                result *= i;
+            }
+        }
+        return result;
     }
 
 
