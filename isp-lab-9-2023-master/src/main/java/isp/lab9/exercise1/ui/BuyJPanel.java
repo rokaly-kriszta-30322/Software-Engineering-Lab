@@ -39,6 +39,8 @@ public class BuyJPanel extends JPanel {
 
         JButton buyButton = new JButton("Buy");
         // todo: add event listener to 'Buy' button
+        buyButton.addActionListener(e ->
+                calculateTotalCostActionPerformed(symbolComboBox, quantityTextField, costTextField));
 
         JButton costButton = new JButton("Get cost");
         costButton.addActionListener(e ->

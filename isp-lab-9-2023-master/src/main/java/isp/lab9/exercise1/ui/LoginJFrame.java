@@ -55,6 +55,11 @@ public class LoginJFrame extends JFrame {
 
         // todo: implement the login by checking the credentials
         //  show an error message (in a JDialog) in case of bad credentials
+        if(accounts.containsKey(userInputField.getText().toString()) && accounts.get(userInputField.getText().toString()).equals(pwdInputField.getText().toString())) {
+            LoginJFrame.this.setVisible(false);
+            new StockMarketJFrame();
+        }
+        else JOptionPane.showMessageDialog(null, "Username or password is incorrect");
     }
 
     private void initAccounts() {
