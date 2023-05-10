@@ -1,13 +1,10 @@
-package isp.lab10.racedemo;
-import java.awt.*;
-import java.io.File;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.swing.*;
+package isp.lab10.raceapp;
 
-public class CarRace {
-    public static void main(String[] args) {
+import javax.swing.*;
+import java.awt.*;
+
+public class CarRace extends Thread{
+    public static void main(String[] args) throws InterruptedException {
         JFrame frame = new JFrame("Car Race");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -18,15 +15,37 @@ public class CarRace {
         frame.setSize(500,300);
         frame.setVisible(true);
 
+        PlaySound sound = new PlaySound();
+        sound.playSound();
+
         Car car1 = new Car("Red car", carPanel);
         Car car2 = new Car("Blue car", carPanel);
         Car car3 = new Car("Green car", carPanel);
         Car car4 = new Car("Yellow car", carPanel);
 
-        car1.start();
-        car2.start();
-        car3.start();
-        car4.start();
+        SemaphorePanel semaphorePanel = new SemaphorePanel();
+        frame.getContentPane().add(semaphorePanel, BorderLayout.WEST);
+
+        SemaphoreThread semaphoreThread = new SemaphoreThread(semaphorePanel);
+        semaphoreThread.start();
+
+        semaphoreThread.join();
+
+        try {
+            car1.start();
+            car2.start();
+            car3.start();
+            car4.start();
+
+            car1.join();
+            car2.join();
+            car3.join();
+            car4.join();
+
+            sound.stopSound();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
     }
     
@@ -111,4 +130,29 @@ class CarPanel extends JPanel {
         }
         return -1;
     }
+
+    public class Race {
+        public static void main(String[] args) {
+            JFrame frame = new JFrame("Race");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+            // Create a panel with a flow layout to hold the race panel and the semaphore panel
+            JPanel mainPanel = new JPanel(new FlowLayout());
+
+            CarPanel racePanel = new CarPanel();
+            SemaphorePanel semaphorePanel = new SemaphorePanel();
+
+            // Add the race panel and the semaphore panel to the main panel
+            mainPanel.add(racePanel);
+            mainPanel.add(semaphorePanel);
+
+            frame.getContentPane().add(mainPanel);
+            frame.pack();
+            frame.setVisible(true);
+
+            SemaphoreThread semaphoreThread = new SemaphoreThread(semaphorePanel);
+            semaphoreThread.start();
+        }
+    }
+
 }

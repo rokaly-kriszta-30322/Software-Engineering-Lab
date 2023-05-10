@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package isp.lab10.racedemo;
+package isp.lab10.raceapp;
 
-import java.awt.*;
 import javax.swing.*;
+import java.awt.*;
 
 public class Semaphore {
     public static void main(String[] args) {
@@ -25,11 +25,10 @@ public class Semaphore {
 
 class SemaphoreThread extends Thread {
     private SemaphorePanel semaphorePanel;
-    
     public SemaphoreThread(SemaphorePanel semaphorePanel) {
         this.semaphorePanel = semaphorePanel;
     }
-    
+
     public void run() {
         try {
             semaphorePanel.setGray();
@@ -40,9 +39,20 @@ class SemaphoreThread extends Thread {
             
             semaphorePanel.setGreen();
 
+            while (semaphorePanel.getColor() != Color.GREEN) {
+                Thread.sleep(1000);
+            }
+
+            startCars();
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    private void startCars() {
+        // Code to start the cars
+        System.out.println("Cars started!");
     }
 }
 
@@ -68,6 +78,10 @@ class SemaphorePanel extends JPanel {
         color = Color.GREEN;
         repaint();
     }
+
+    public Color getColor() {
+        return color;
+    }
     
     @Override
     protected void paintComponent(Graphics g) {
@@ -82,5 +96,7 @@ class SemaphorePanel extends JPanel {
         
         g.setColor(Color.BLACK);
         g.drawOval(x, y, diameter, diameter);
+
     }
+
 }
