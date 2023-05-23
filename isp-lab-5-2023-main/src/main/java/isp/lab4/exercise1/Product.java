@@ -6,13 +6,22 @@ public class Product {
     private String name;
     private double price;
     private ProductCategory productCategory;
-    private Customer customer;
+    private Order order;
 
-    public Product (String productId, String name, double price, ProductCategory productCategory, Customer customer) {
+    public Product(String productId, String name, double price, ProductCategory productCategory, Order order) {
         this.productId = productId;
         this.name = name;
         this.price = price;
         this.productCategory = productCategory;
+        this.order = order;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     public void setName(String name) {
@@ -30,11 +39,6 @@ public class Product {
     public void setProductId(String productId) {
         this.productId = productId;
     }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
     public String getName() {
         return name;
     }
@@ -51,7 +55,7 @@ public class Product {
         return productId;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public String getCustomer(Customer customer) {
+        return customer.getName();
     }
 }
